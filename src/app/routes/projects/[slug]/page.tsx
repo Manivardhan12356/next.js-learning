@@ -7,7 +7,7 @@ type Props = {
 export default async function ProjectPage({ params }: Props) {
   const project = projects.find((p) => p.slug === params?.slug);
 
-  if (!project) return <h1>Project not found</h1>;
+  if (!project) return <h1>Project found</h1>;
 
   return <h1>Project: {project.name}</h1>;
 }
