@@ -1,18 +1,17 @@
-import React from 'react';
-//function
-type Props = {
-  params: { slug: string };
-};
+interface Props {
+  params: {
+    slug: string;
+  };
+}
 
-const catchALLsegments = ({ params }: Props) => {
-  if (params?.slug?.length === 1) {
-    return <h1>{params.slug[0]}</h1>;
-  }
-  if (params?.slug?.length === 2) {
-    return <h1>{`${params.slug[0]} and ${params.slug[1]}`}</h1>;
-  }
+export default function BlogPostPage({ params }: Props) {
+  const { slug } = params;
 
-  return <div>catchALLsegments</div>;
-};
+  return (
+    <main>
+      <h1>Blog Post: {slug}</h1>
+      {/* You can fetch post data here using the slug */}
+    </main>
+  );
+}
 
-export default catchALLsegments;
