@@ -1,18 +1,25 @@
-// app/blog/[...slug]/page.tsx
+import { notFound } from 'next/navigation';
 
-import React from 'react';
-
-type Props = {
+interface PageProps {
   params: {
-    slug?: string[]; // slug can be undefined or an array of strings
+    slug?: string[] | null;
   };
-};
+}
 
-const CatchAllSegments = ({ params }: Props) => {
-  const { slug } = params;
+// Simulate a data fetcher based on slug
+async function fetchDataBySlug(slug: string[]): Promise<string | null> {
+  const knownSlugs = [['about'], ['products', 'shoes']];
+  const matched = knownSlugs.find((entry) => JSON.stringify(entry) === JSON.stringify(slug));
+  return matched ? matched.join('/') : null;
+}
 
-  if (!slug) {
-    return <div>No slug provided</div>;
+export default async function CatchAllPage({ params }: PageProps) {
+  const slug = params.slug ?? [];
+
+  const data = await fetchDataBySlug(slug);
+
+  if (!data) {
+    notFound(); // Trigger 404 page if data not found
   }
 
   if (slug.length === 1) {
@@ -23,8 +30,5 @@ const CatchAllSegments = ({ params }: Props) => {
     return <h1>{`${slug[0]} and ${slug[1]}`}</h1>;
   }
 
-  return <div>CatchAllSegments: {slug.join(' / ')}</div>;
-};
-
-export default CatchAllSegments;
-
+  return <div>CatchAll Page: {slug.join(' / ')}</div>;
+}
