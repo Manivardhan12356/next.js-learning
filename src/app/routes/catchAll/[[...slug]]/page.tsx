@@ -1,5 +1,5 @@
 import React from 'react';
-
+//function
 type Props = {
   params: { slug: string | string[] };
 };
