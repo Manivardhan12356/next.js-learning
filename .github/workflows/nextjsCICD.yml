@@ -3,7 +3,7 @@ name: Frontend CI
 on: [push]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -24,4 +24,5 @@ jobs:
 
       - name: Run tests
         run: npm test
+
 
